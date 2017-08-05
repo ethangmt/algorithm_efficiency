@@ -1,8 +1,8 @@
 TODO
 
 [x]Fix quicksort lomuto
-[]Implement mergesort bottom up
 []Implement quicksort hoare
+[]Implement mergesort bottom up
 []Find a way to measure performance
 []Evaluate performance data
 []Implemenet linked list and array performance test
