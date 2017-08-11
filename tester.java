@@ -1,74 +1,120 @@
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
-import java_implementation.linked_list.quicksort_lomuto.quicksort_lomuto;
-import java_implementation.linked_list.mergesort_top_down.mergesort_top_down;
+import java_implementation.tools.tools;
+//import java_implementation.linked_list.quicksort_hoare.quicksort_hoare;
+//import java_implementation.linked_list.mergesort_top_down.mergesort_top_down;
+import java_implementation.array.mergesort_top_down.mergesort_top_down;
+import java_implementation.array.quicksort_hoare.quicksort_hoare;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 
-public class tester
+public class tester extends Thread
 {
-  public static void main (String args[])
+  public static void main (String args[]) throws FileNotFoundException
   {
+    // Display status of tests
+    String loading[] = {"|", "/", "-", "\\"};
+    int loading_index = 0;
+
+    // Store data
+    PrintWriter writer = new PrintWriter("tester_lists.txt");
+    PrintWriter wdata = new PrintWriter("tester_data_mergesort.txt");
+
     mergesort_top_down msort = new mergesort_top_down();
-    quicksort_lomuto qsort = new quicksort_lomuto();
+    quicksort_hoare qsort = new quicksort_hoare();
 
-    int tests = 50;
-    long total = 0L;
+    //int tests = 1000000;
+    int tests = 100000;
+    int list_length = 2;
 
+    long total_nano = 0L;
+
+    wdata.println("mergesort");
     System.out.println("Starting mergesort tests...");
     for (int i = 0; i < tests; i++)
     {
-        Integer int_data[] = generateInt(10);
-        LinkedList<Integer> data = new LinkedList<Integer>(Arrays.asList(int_data));
+      // Clear screen and print mergesort tests
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
+      System.out.println("Mergesort tests in progess " + loading[loading_index] + loading[loading_index] + loading[loading_index] + list_length);
+      loading_index++;
+      if (loading_index > loading.length - 1)
+        loading_index = 0;
 
-        long startTime = System.nanoTime();
-        LinkedList<Integer> test = msort.sort(data);
-        long endTime = System.nanoTime();
-        total += (endTime - startTime);
+      // Generate array to be sorted
+      int int_data[] = tools.generateint(list_length); //Integer
+      //LinkedList<Integer> data = new LinkedList<Integer>(Arrays.asList(int_data));
 
-        System.out.println(test + " Sorted: " + sorted(test));
+      // Measure time it takes mergesort to sort array
+      long startTime = System.nanoTime();
+      int test[] = msort.sort(int_data); //LinkedList
+      long endTime = System.nanoTime();
+      total_nano += (endTime - startTime);
+
+      // Store data
+      wdata.println(endTime - startTime );//+ "," + list_length);
+
+      // Check that mergesort is working correctly
+      if (tools.sorted(test) == false)
+      {
+        System.out.println("Sorting failed . . . . .");
+        System.exit(0);
+        break;
+      }
+
+      // Slowly increase the size of the array
+      list_length += 1;
     }
-    double seconds = (double) (total / tests) / 1000000000;
-    System.out.println("Average: " + seconds + " seconds");
 
-    System.out.println("\n\n");
+    double nano = (double) total_nano / tests;
+    System.out.println(total_nano + " nsec - Total nanoseconds");
+    System.out.println(nano + " nsec - Average nanoseconds");
 
-    /**System.out.println("Starting quicksort tests...");
+    wdata.println("\n");
+
+    total_nano = 0L;
+
+    // Store data for quicksort
+    wdata.close();
+    wdata = new PrintWriter("tester_data_quicksort.txt");
+
+    list_length = 2;
+    wdata.println("quicksort");
+    System.out.println("Starting quicksort tests...");
     for (int i = 0; i < tests; i++)
     {
-      Integer int_data[] = generateInt(10);
-      LinkedList<Integer> data = new LinkedList<Integer>(Arrays.asList(int_data));
-      LinkedList<Integer> test = qsort.sort(data, 1, data.size() - 1); //0
-      System.out.println(test + " Sorted: " + sorted(test));
-    }**/
-  }
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
+      System.out.println("Quicksort tests in progess " + loading[loading_index] + loading[loading_index] + loading[loading_index] + list_length);
+      loading_index++;
+      if (loading_index > loading.length - 1)
+        loading_index = 0;
 
-  public static Integer[] generateInt (int length)
-  {
-    Integer result[] = new Integer[length];
-    Random data_generation = new Random();
+      int int_data[] = tools.generateint(list_length); //Integer
+      //LinkedList<Integer> data = new LinkedList<Integer>(Arrays.asList(int_data));
 
-    for (int i = 0; i < length; i++)
-    {
-        result[i] = data_generation.nextInt(100);
+      long startTime = System.nanoTime();
+      int test[] = qsort.sort(int_data, 0, int_data.length - 1); //linkledlist data.size
+      long endTime = System.nanoTime();
+      total_nano += (endTime - startTime);
+
+      wdata.println(endTime - startTime );//+ "," + list_length);
+
+      if (tools.sorted(test) == false)
+      {
+        System.out.println("Sorting failed . . . . .");
+        System.exit(0);
+        break;
+      }
+      list_length++;
     }
 
-    return result;
-  }
+    nano = (double) total_nano / tests;
+    System.out.println(total_nano + " nsec - Total nanoseconds");
+    System.out.println(nano + " nsec - Average nanoseconds\n\n");
 
-  public static boolean sorted (LinkedList<Integer> data)
-  {
-    int previous = -1;
-    for (int i = 0; i < data.size(); i++)
-    {
-      if (previous == -1)
-      {
-        previous = data.get(i);
-      }
-      else if (previous > data.get(i))
-      {
-        return false;
-      }
-    }
-    return true;
+    writer.close();
+    wdata.close();
   }
 }

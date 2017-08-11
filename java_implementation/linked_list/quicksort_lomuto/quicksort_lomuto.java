@@ -1,6 +1,9 @@
 package java_implementation.linked_list.quicksort_lomuto;
 import java.util.LinkedList;
 import java.util.Arrays;
+
+// initial call array, 0, array.size() - 1 
+
 /**
  *
  * Quicksort algorithm

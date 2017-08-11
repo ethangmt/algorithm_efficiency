@@ -1,10 +1,12 @@
 TODO
 
 [x]Fix quicksort lomuto
-[]Implement quicksort hoare
-[]Implement mergesort bottom up
-[]Find a way to measure performance
-[]Evaluate performance data
+[x]Implement quicksort hoare
+[x]Find a way to measure performance
+[x]Evaluate performance data
+[x]Implement array variants of algorithms
+[]Correct mergesort_top_down linked list
+[]Evaluate big o ram mergesort top_down
 []Implemenet linked list and array performance test
 []Evaluate linked list and array performace data
-[]Implement previous algorithms in python and possible c ?
+[]Implement previous algorithms in python and c ?
