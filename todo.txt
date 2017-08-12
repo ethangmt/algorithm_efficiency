@@ -5,7 +5,7 @@ TODO
 [x]Find a way to measure performance
 [x]Evaluate performance data
 [x]Implement array variants of algorithms
-[]Make graphs
+[]Make graphs (graph with quicksort and mergesort side by side), (remove sec graphs, add sec label to nsec graphs)
 []Correct mergesort_top_down
 []Evaluate big o ram mergesort top_down
 []Implemenet linked list and array performance test
