@@ -65,8 +65,6 @@ public class tester
       list_length += 1;
     }
 
-    wdata.println("\n");
-
     long total_nano_quicksort = 0L;
 
     // Store data for quicksort
