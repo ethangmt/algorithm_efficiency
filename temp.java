@@ -1,7 +1,7 @@
 import java_implementation.array.mergesort_top_down.mergesort_top_down;
 import java_implementation.array.quicksort_hoare.quicksort_hoare;
 import java_implementation.tools.tools;
-import java_implementation.array.tester;
+import java_implementation.array.tester.tester;
 //import java_implementation.linked_list.tester;
 import java.util.LinkedList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package java_implementation.array;
+package java_implementation.array.tester;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,12 +13,14 @@ public class tester
 {
   public static void test () throws FileNotFoundException
   {
+    String path = "java_implementation/array/tester/";
+
     // Display status of tests
     String loading[] = {"|", "/", "-", "\\"};
     int loading_index = 0;
 
     // Store data
-    PrintWriter wdata = new PrintWriter("java_implementation/array/tester_data_mergesort.txt");
+    PrintWriter wdata = new PrintWriter(path + "tester_data_mergesort.txt");
 
     mergesort_top_down msort = new mergesort_top_down();
     quicksort_hoare qsort = new quicksort_hoare();
@@ -69,7 +71,7 @@ public class tester
 
     // Store data for quicksort
     wdata.close();
-    wdata = new PrintWriter("java_implementation/array/tester_data_quicksort.txt");
+    wdata = new PrintWriter(path + "tester_data_quicksort.txt");
 
     list_length = 2;
     //wdata.println("quicksort");

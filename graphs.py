@@ -1,19 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-array_path = "graphs/array/"
-list_path = "graphs/linked_list"
-array_tester_path = "java_implementation/array/"
-list_tester_path = "java_implementation/linked_list/"
-
-linew = 3
-array_mergesort_color = "blue"
-array_quicksort_color = "red"
-list_mergesort_color = "green"
-list_quicksort_color = "yellow"
-array_color = "cyan"
-list_color = "magenta"
-
 def find_limit(a, b):
     limit = 0
     for i in a:
@@ -28,79 +15,102 @@ def find_limit(a, b):
             limit = blimit
     return limit
 
-# Create array mergesort graph
-array_mergesort = open(array_tester_path + "tester_data_mergesort.txt", "r")
-array_mergesort_data = []
+def setSecondaryAxes(plot):
 
-# Number of total elements in array
-array_lists = []
+    if plot is None:
+        primary_axes = plt.gca()
+    else:
+        primary_axes = plot.axes
+    secondary_axes = primary_axes.twinx()
+    secondary_axes.set_ylabel("Seconds")
+    bottom, top = primary_axes.get_ylim()
+    secondary_axes.set_ylim(bottom, float(top / 1000000000))
 
-for line in array_mergesort:
-    array_mergesort_data.append(int(line))
-array_mergesort.close()
+def getData(array_path):
+    array_mergesort_data = []
+    array_quicksort_data = []
+    array_elements = []
+    list_mergesort_data = []
+    list_quicksort_data = []
 
-for i in range(len(array_mergesort_data)):
-    array_lists.append(i)
+    #Array
+    array_mergesort = open(array_path + "tester_data_mergesort.txt", "r")
+    for line in array_mergesort:
+        array_mergesort_data.append(int(line))
+    array_mergesort.close()
 
-array_quicksort = open(array_tester_path + "tester_data_quicksort.txt", "r")
-array_quicksort_data = []
-array_quicksort_lists = []
+    array_quicksort = open(array_path + "tester_data_quicksort.txt", "r")
+    for line in array_quicksort:
+        array_quicksort_data.append(int(line))
+    array_quicksort.close()
 
-for line in array_quicksort:
-    array_quicksort_data.append(int(line))
-array_quicksort.close()
+    #Linked List TODO
 
+    #Total number of elements
+    for i in range(len(array_mergesort_data)):
+        array_elements.append(i)
+
+    data = {"array_mergesort_data": array_mergesort_data, "array_quicksort_data": array_quicksort_data,
+    "list_mergesort_data": list_mergesort_data, "list_quicksort_data": list_quicksort_data, "array_elements": array_elements}
+    return data
+
+
+array_path = "graphs/array/"
+list_path = "graphs/linked_list"
+array_tester_path = "java_implementation/array/tester/"
+list_tester_path = "java_implementation/linked_list/"
+
+linew = 3
+
+array_mergesort_color = "blue"
+array_quicksort_color = "red"
+list_mergesort_color = "green"
+list_quicksort_color = "yellow"
+array_color = "cyan"
+list_color = "magenta"
+
+data = getData(array_tester_path)
+
+
+#Put in for loop
 plt.figure(0)
+plt.plot(data["array_elements"], data["array_mergesort_data"], color = array_mergesort_color, linewidth = linew, label = "Array Mergesort")
+plt.legend()
 plt.xlabel("Elements in Array")
 plt.ylabel("Nanoseconds")
-axes = plt.gca().twinx()
-axes.set_ylabel("Seconds")
-axes.set_ylim(0, .01)
-plt.ylim(0, find_limit(array_mergesort_data, None))
-plt.plot(array_lists, array_mergesort_data, color = array_mergesort_color, linewidth = linew, label = "Array Mergesort")
-plt.legend()
+setSecondaryAxes(None)
 plt.suptitle("Array Mergesort Sorting Time")
-plt.savefig(array_path + "array_mergesort_ns.jpg")
+plt.savefig(array_path + "array_mergesort.jpg")
 
 plt.figure(1)
-array_mergesort_data_seconds = np.array(array_mergesort_data).astype(np.float)
-array_mergesort_data_seconds /= 1000000000
-plt.xlabel("Elements in Array")
-plt.ylabel("Seconds")
-#plt.ylim(0, find_limit(array_mergesort_data_seconds, None))
-plt.plot(array_lists, array_mergesort_data_seconds, color = array_mergesort_color, linewidth = linew, label = "Array Mergesort")
+plt.plot(data["array_elements"], data["array_quicksort_data"], color = array_quicksort_color, linewidth = linew, label = "Array Quicksort")
 plt.legend()
-plt.suptitle("Array Mergesort Sorting Time")
-plt.savefig(array_path + "array_mergesort_s.jpg")
-
-# Create array quicksort graphs
-plt.figure(2)
 plt.xlabel("Elements in Array")
 plt.ylabel("Nanoseconds")
-#plt.ylim(0, find_limit(array_quicksort_data, None))
-plt.plot(array_lists, array_quicksort_data, color = array_quicksort_color, linewidth = linew, label = "Array Quicksort")
-plt.legend()
+setSecondaryAxes(None)
 plt.suptitle("Array Quicksort Sorting Time")
-plt.savefig(array_path + "array_quicksort_ns.jpg")
+plt.savefig(array_path + "array_quicksort.jpg")
+
+plt.figure(2)
+plt.plot(data["array_elements"], data["array_mergesort_data"], color = array_mergesort_color, linewidth = linew, label = "Array Mergesort")
+plt.plot(data["array_elements"], data["array_quicksort_data"], color = array_quicksort_color, linewidth = linew, label = "Array Quicksort")
+plt.legend()
+plt.xlabel("Elements in Array")
+plt.ylabel("Nanoseconds")
+setSecondaryAxes(None)
+plt.suptitle("Array Quicksort and Mergesort Sorting Time")
+plt.savefig(array_path + "array_comparison.jpg")
 
 plt.figure(3)
-array_quicksort_data_seconds = np.array(array_quicksort_data).astype(np.float)
-array_quicksort_data_seconds /= 1000000000
-plt.xlabel("Elements in Array")
-plt.ylabel("Seconds")
-#plt.ylim(0, find_limit(array_quicksort_data_seconds, None))
-plt.plot(array_lists, array_quicksort_data_seconds, color = array_quicksort_color, linewidth = linew, label = "Array Quicksort")
-plt.legend()
-plt.suptitle("Array Quicksort Sorting Time")
-plt.savefig(array_path + "array_quicksort_s.jpg")
-
-# Array mergesort and quicksort graphs
-plt.figure(4)
-plt.xlabel("Elements in Array")
-plt.ylabel("Nanoseconds")
-#plt.ylim(0, find_limit(array_mergesort_data, array_quicksort_data))
-plt.plot(array_lists, array_mergesort_data, color = array_mergesort_color, linewidth = linew, label = "Array Mergesort")
-plt.plot(array_lists, array_quicksort_data, color = array_quicksort_color, linewidth = linew, label = "Array Quicksort")
-plt.legend()
-plt.suptitle("Array Quicksort and Mergesort Sorting Time")
-plt.savefig(array_path + "array_comparison_ns.jpg")
+f, plot = plt.subplots(2, sharex = True, sharey = True)
+plot[0].plot(data["array_elements"], data["array_mergesort_data"], color = array_mergesort_color, linewidth = linew, label = "Array Mergesort")
+plot[0].legend()
+plot[0].set_xlabel("Elements in Array")
+plot[0].set_ylabel("Nanoseconds")
+plot[1].plot(data["array_elements"], data["array_quicksort_data"], color = array_quicksort_color, linewidth = linew, label = "Array Quicksort")
+plot[1].legend()
+plot[1].set_xlabel("Elements in Array")
+plot[1].set_ylabel("Nanoseconds")
+setSecondaryAxes(plot[0])
+setSecondaryAxes(plot[1])
+plt.savefig(array_path + "array_comparisons.jpg")

@@ -6,8 +6,7 @@ TODO
 [x]Evaluate performance data
 [x]Implement array variants of algorithms
 []Make graphs (graph with quicksort and mergesort side by side), (remove sec graphs, add sec label to nsec graphs)
-[]Correct mergesort_top_down
-[]Evaluate big o ram mergesort top_down
+[]Compare in place mergesort to mergesort (first array, second linked list)
 []Implemenet linked list and array performance test
 []Evaluate linked list and array performace data
 []Implement previous algorithms in python and c ?
