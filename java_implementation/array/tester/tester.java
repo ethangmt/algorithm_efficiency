@@ -31,7 +31,6 @@ public class tester
 
     long total_nano_mergesort = 0L;
 
-    //wdata.println("mergesort");
     System.out.println("Starting mergesort tests...");
     for (int i = 0; i < tests; i++)
     {
@@ -74,7 +73,6 @@ public class tester
     wdata = new PrintWriter(path + "tester_data_quicksort.txt");
 
     list_length = 2;
-    //wdata.println("quicksort");
     System.out.println("Starting quicksort tests...");
     for (int i = 0; i < tests; i++)
     {

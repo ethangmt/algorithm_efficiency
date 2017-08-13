@@ -1,4 +1,4 @@
-package java_implementation.linked_list;
+package java_implementation.linked_list.tester;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,23 +13,24 @@ public class tester
 {
   public static void main (String args[]) throws FileNotFoundException
   {
+    String path = "java_implementation/linked_list/tester/";
+
     // Display status of tests
     String loading[] = {"|", "/", "-", "\\"};
     int loading_index = 0;
 
     // Store data
-    PrintWriter wdata = new PrintWriter("java_implementation/linked_list/tester_data_mergesort.txt");
+    PrintWriter wdata = new PrintWriter(path + "tester_data_mergesort.txt");
 
     mergesort_top_down msort = new mergesort_top_down();
     quicksort_hoare qsort = new quicksort_hoare();
 
     //int tests = 1000000;
-    int tests = 100000;
+    int tests = 1000;
     int list_length = 2;
 
     long total_nano_mergesort = 0L;
 
-    wdata.println("mergesort");
     System.out.println("Starting mergesort tests...");
     for (int i = 0; i < tests; i++)
     {
@@ -66,16 +67,13 @@ public class tester
       list_length += 1;
     }
 
-    wdata.println("\n");
-
     long total_nano_quicksort = 0L;
 
     // Store data for quicksort
     wdata.close();
-    wdata = new PrintWriter("java_implementation/linked_list/tester_data_quicksort.txt");
+    wdata = new PrintWriter(path + "tester_data_quicksort.txt");
 
     list_length = 2;
-    wdata.println("quicksort");
     System.out.println("Starting quicksort tests...");
     for (int i = 0; i < tests; i++)
     {
@@ -104,6 +102,8 @@ public class tester
       }
       list_length++;
     }
+
+    System.out.print("\033[H\033[2J");
 
     System.out.println("Mergesort");
     double nano_mergesort = (double) total_nano_mergesort / tests;
