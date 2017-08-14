@@ -5,8 +5,10 @@ TODO
 [x]Find a way to measure performance
 [x]Evaluate performance data
 [x]Implement array variants of algorithms
-[]Make graphs (graph with quicksort and mergesort side by side), (remove sec graphs, add sec label to nsec graphs)
+[]Store final execution time and make graph
+[]Use same random numbers
 []Compare in place mergesort to mergesort (first array, second linked list)
+[]Make graphs (graph with quicksort and mergesort side by side), (remove sec graphs, add sec label to nsec graphs)
 []Implemenet linked list and array performance test
 []Evaluate linked list and array performace data
 []Implement previous algorithms in python and c ?

@@ -8,54 +8,42 @@ import java_implementation.linked_list.quicksort_hoare.quicksort_hoare;
 import java_implementation.linked_list.mergesort_top_down.mergesort_top_down;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
+import java_implementation.tools.printer;
 
 public class tester
 {
-  public static void main (String args[]) throws FileNotFoundException
+  static String path = "java_implementation/linked_list/tester/";
+  static int tests = 1000;
+  static boolean mergesort = false;
+  static boolean quicksort = false;
+  static long total_nano_mergesort = 0L;
+  static long total_nano_quicksort = 0L;
+  static double nano_mergesort = 0;
+  static double nano_quicksort = 0;
+
+  public static void mergesort() throws FileNotFoundException
   {
-    String path = "java_implementation/linked_list/tester/";
-
-    // Display status of tests
-    String loading[] = {"|", "/", "-", "\\"};
-    int loading_index = 0;
-
-    // Store data
     PrintWriter wdata = new PrintWriter(path + "tester_data_mergesort.txt");
 
+    printer print = new printer("Mergesort");
     mergesort_top_down msort = new mergesort_top_down();
-    quicksort_hoare qsort = new quicksort_hoare();
 
-    //int tests = 1000000;
-    int tests = 1000;
     int list_length = 2;
 
-    long total_nano_mergesort = 0L;
-
-    System.out.println("Starting mergesort tests...");
     for (int i = 0; i < tests; i++)
     {
-      // Clear screen and print mergesort tests
-      System.out.print("\033[H\033[2J");
-      System.out.flush();
-      System.out.println("Mergesort tests in progess " + loading[loading_index] + loading[loading_index] + loading[loading_index] + list_length);
-      loading_index++;
-      if (loading_index > loading.length - 1)
-        loading_index = 0;
+      print.loading(i);
 
-      // Generate array to be sorted
       Integer int_data[] = tools.generateInt(list_length);
       LinkedList<Integer> data = new LinkedList<Integer>(Arrays.asList(int_data));
 
-      // Measure time it takes mergesort to sort array
       long startTime = System.nanoTime();
       LinkedList<Integer> test = msort.sort(data);
       long endTime = System.nanoTime();
       total_nano_mergesort += (endTime - startTime);
 
-      // Store data
       wdata.println(endTime - startTime );
 
-      // Check that mergesort is working correctly
       if (tools.sorted(test) == false)
       {
         System.out.println("Sorting failed . . . . .");
@@ -63,26 +51,29 @@ public class tester
         break;
       }
 
-      // Slowly increase the size of the array
-      list_length += 1;
+      list_length++;
     }
 
-    long total_nano_quicksort = 0L;
-
-    // Store data for quicksort
+    nano_mergesort = (double) total_nano_mergesort / tests;
+    wdata.print("\n" + total_nano_mergesort + "\n" + nano_mergesort);
     wdata.close();
-    wdata = new PrintWriter(path + "tester_data_quicksort.txt");
+    System.out.print("\033[H\033[2J");
 
-    list_length = 2;
-    System.out.println("Starting quicksort tests...");
+    mergesort = true;
+  }
+
+  public static void quicksort() throws FileNotFoundException
+  {
+    PrintWriter wdata = new PrintWriter(path + "tester_data_quicksort.txt");
+
+    printer print = new printer("Quicksort");
+    quicksort_hoare qsort = new quicksort_hoare();
+
+    int list_length = 2;
+
     for (int i = 0; i < tests; i++)
     {
-      System.out.print("\033[H\033[2J");
-      System.out.flush();
-      System.out.println("Quicksort tests in progess " + loading[loading_index] + loading[loading_index] + loading[loading_index] + list_length);
-      loading_index++;
-      if (loading_index > loading.length - 1)
-        loading_index = 0;
+      print.loading(i);
 
       Integer int_data[] = tools.generateInt(list_length);
       LinkedList<Integer> data = new LinkedList<Integer>(Arrays.asList(int_data));
@@ -103,18 +94,29 @@ public class tester
       list_length++;
     }
 
+    nano_quicksort = (double) total_nano_quicksort / tests;
+    wdata.print("\n" + total_nano_quicksort + "\n" + nano_quicksort);
+    wdata.close();
     System.out.print("\033[H\033[2J");
 
-    System.out.println("Mergesort");
-    double nano_mergesort = (double) total_nano_mergesort / tests;
-    System.out.println(total_nano_mergesort + " nsec - Total nanoseconds");
-    System.out.println(nano_mergesort + " nsec - Average nanoseconds");
+    quicksort = true;
+  }
 
-    System.out.println("Quicksort");
-    double nano_quicksort = (double) total_nano_quicksort / tests;
-    System.out.println(total_nano_quicksort + " nsec - Total nanoseconds");
-    System.out.println(nano_quicksort + " nsec - Average nanoseconds\n\n");
+  public static void print_results()
+  {
+    if (mergesort && quicksort)
+    {
+      System.out.println("Mergesort");
+      System.out.println(total_nano_mergesort + " nsec - Total nanoseconds");
+      System.out.println(nano_mergesort + " nsec - Average nanoseconds");
 
-    wdata.close();
+      System.out.println("Quicksort");
+      System.out.println(total_nano_quicksort + " nsec - Total nanoseconds");
+      System.out.println(nano_quicksort + " nsec - Average nanoseconds\n\n");
+    }
+    else
+    {
+      System.out.println("Sorting tests have not finished");
+    }
   }
 }

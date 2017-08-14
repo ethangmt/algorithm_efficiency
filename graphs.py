@@ -28,7 +28,11 @@ def setSecondaryAxes(plot):
 
 def getData(array_path):
     array_mergesort_data = []
+    array_mergesort_total = 0
+    array_mergesort_average = 0
     array_quicksort_data = []
+    array_quicksort_total = 0
+    array_quicksort_average = 0
     array_elements = []
     list_mergesort_data = []
     list_quicksort_data = []
@@ -36,12 +40,19 @@ def getData(array_path):
     #Array
     array_mergesort = open(array_path + "tester_data_mergesort.txt", "r")
     for line in array_mergesort:
-        array_mergesort_data.append(int(line))
+        if line != "\n":
+            array_mergesort_data.append(int(line))
+        else:
+            break;
+    #Store total and averages TODO 
     array_mergesort.close()
 
     array_quicksort = open(array_path + "tester_data_quicksort.txt", "r")
     for line in array_quicksort:
-        array_quicksort_data.append(int(line))
+        if line != "\n":
+            array_quicksort_data.append(int(line))
+        else:
+            break;
     array_quicksort.close()
 
     #Linked List TODO
