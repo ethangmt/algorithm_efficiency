@@ -13,7 +13,7 @@ import java_implementation.tools.printer;
 public class tester
 {
   static String path = "java_implementation/array/tester/";
-  static int tests = 10000;
+  static int tests = 1000;
   static boolean mergesort = false;
   static boolean quicksort = false;
   static long total_nano_mergesort = 0L;
