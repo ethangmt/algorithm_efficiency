@@ -25,7 +25,7 @@ public class temp
         System.out.println(Arrays.toString(test) + " Sorted: " + tools.sorted(test));
       }*/
 
-      Thread t = new Thread(new Runnable(){
+      /**Thread t = new Thread(new Runnable(){
         @Override
         public void run() {
           try
@@ -38,8 +38,9 @@ public class temp
           }
         }
       });
-      t.start();
+      t.start();*/
 
+      tester.quicksort();
       tester.mergesort();
       tester.print_results();
   }

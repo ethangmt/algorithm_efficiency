@@ -6,7 +6,7 @@ TODO
 [x]Evaluate performance data
 [x]Implement array variants of algorithms
 []Store final execution time and make graph
-[]Use same random numbers
+[x]Use same random numbers
 []Compare in place mergesort to mergesort (first array, second linked list)
 []Make graphs (graph with quicksort and mergesort side by side), (remove sec graphs, add sec label to nsec graphs)
 []Implemenet linked list and array performance test

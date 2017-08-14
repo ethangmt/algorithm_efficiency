@@ -34,25 +34,29 @@ def getData(array_path):
     array_quicksort_total = 0
     array_quicksort_average = 0
     array_elements = []
+
     list_mergesort_data = []
     list_quicksort_data = []
 
     #Array
     array_mergesort = open(array_path + "tester_data_mergesort.txt", "r")
     for line in array_mergesort:
-        if line != "\n":
-            array_mergesort_data.append(int(line))
-        else:
-            break;
-    #Store total and averages TODO 
+        array_mergesort_data.append(float(line))
+
+    array_mergesort_average = array_mergesort_data[len(array_mergesort_data) - 1]
+    array_mergesort_data.pop()
+    array_mergesort_total = array_mergesort_data[len(array_mergesort_data) - 2]
+    array_mergesort_data.pop()
     array_mergesort.close()
 
     array_quicksort = open(array_path + "tester_data_quicksort.txt", "r")
     for line in array_quicksort:
-        if line != "\n":
-            array_quicksort_data.append(int(line))
-        else:
-            break;
+        array_quicksort_data.append(float(line))
+
+    array_quicksort_average = array_quicksort_data[len(array_quicksort_data) - 1]
+    array_quicksort_data.pop()
+    array_quicksort_total = array_quicksort_data[len(array_quicksort_data) - 2]
+    array_quicksort_data.pop()
     array_quicksort.close()
 
     #Linked List TODO
@@ -69,7 +73,7 @@ def getData(array_path):
 array_path = "graphs/array/"
 list_path = "graphs/linked_list"
 array_tester_path = "java_implementation/array/tester/"
-list_tester_path = "java_implementation/linked_list/"
+list_tester_path = "java_implementation/linked_list/tester/"
 
 linew = 3
 

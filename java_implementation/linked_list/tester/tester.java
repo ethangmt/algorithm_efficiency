@@ -55,7 +55,7 @@ public class tester
     }
 
     nano_mergesort = (double) total_nano_mergesort / tests;
-    wdata.print("\n" + total_nano_mergesort + "\n" + nano_mergesort);
+    wdata.print(total_nano_mergesort + "\n" + nano_mergesort);
     wdata.close();
     System.out.print("\033[H\033[2J");
 
@@ -95,7 +95,7 @@ public class tester
     }
 
     nano_quicksort = (double) total_nano_quicksort / tests;
-    wdata.print("\n" + total_nano_quicksort + "\n" + nano_quicksort);
+    wdata.print(total_nano_quicksort + "\n" + nano_quicksort);
     wdata.close();
     System.out.print("\033[H\033[2J");
 
