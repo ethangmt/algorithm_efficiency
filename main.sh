@@ -4,7 +4,7 @@
 javac */*/*/*.java
 
 #Run tests
-java java_implementation/tester
+java java_implementation/tester/tester
 java java_implementation/data_structures
 
 #Create graphs

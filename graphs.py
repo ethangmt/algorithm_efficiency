@@ -26,7 +26,7 @@ def setSecondaryAxes(plot):
     bottom, top = primary_axes.get_ylim()
     secondary_axes.set_ylim(bottom, float(top / 1000000000))
 
-def getData(array_path, list_path):
+def getData(array_path, list_path, data_structures_path):
     #Array
     array_mergesort_data = []
     array_mergesort_total = 0
@@ -91,6 +91,17 @@ def getData(array_path, list_path):
     for i in range(len(list_quicksort_data)):
         list_elements.append(i)
 
+    #Data structures
+    array_read_data = []
+    array_read_total = 0
+    array_read_average = 0
+    array_write_data = []
+    array_write_total = 0
+    array_write_average = 0
+    array_tests = []
+
+    array_read = open(data_structures_path + "array_read.txt")
+
     array_data = {"array_mergesort_data": array_mergesort_data, "array_quicksort_data": array_quicksort_data,
     "array_mergesort_average": array_mergesort_average, "array_mergesort_total": array_mergesort_total,
     "array_quicksort_average": array_quicksort_average, "array_quicksort_total": array_quicksort_total,
@@ -106,7 +117,7 @@ def getData(array_path, list_path):
     return data
 
 path = ["graphs/array/", "graphs/linked_list/"]
-tester_path = ["java_implementation/array/tester/", "java_implementation/linked_list/tester/"]
+tester_path = ["java_implementation/array/tester/", "java_implementation/linked_list/tester/", "java_implementation/data_structures"]
 
 linew = 3
 data_structures = ["array", "list"]
@@ -116,10 +127,10 @@ quicksort_color = ["red", "yellow"]
 array_color = "cyan"
 list_color = "magenta"
 
-data = getData(tester_path[0], tester_path[1])
+data = getData(tester_path[0], tester_path[1], tester_path[2])
 
-#First loop - Array graphs
-#Seconds loop - Linked List graphs
+#First iteration - Array graphs
+#Seconds iteration - Linked List graphs
 index = 0
 for i in range(2):
     plt.figure(i + index)
@@ -128,7 +139,7 @@ for i in range(2):
     plt.xlabel("elements in " + data_structures[i])
     plt.ylabel("Nanoseconds")
     setSecondaryAxes(None)
-    plt.suptitle(data_structures[i] + " mergesort sorting time")
+    plt.title(data_structures[i] + " mergesort sorting time")
     plt.savefig(path[i] + (data_structures[i] + "_mergesort.jpg"))
 
     index += 1
@@ -138,7 +149,7 @@ for i in range(2):
     plt.xlabel("elements in " + data_structures[i])
     plt.ylabel("Nanoseconds")
     setSecondaryAxes(None)
-    plt.suptitle(data_structures[i] + " quicksort sorting time")
+    plt.title(data_structures[i] + " quicksort sorting time")
     plt.savefig(path[i] + (data_structures[i] + "_quicksort.jpg"))
 
     index += 1
@@ -149,7 +160,7 @@ for i in range(2):
     plt.xlabel("elements in " + data_structures[i])
     plt.ylabel("Nanoseconds")
     setSecondaryAxes(None)
-    plt.suptitle(data_structures[i] + " quicksort and mergesort sorting time")
+    plt.title(data_structures[i] + " quicksort and mergesort sorting time")
     plt.savefig(path[i] + (data_structures[i] + "_comparison.jpg"))
 
     index += 1
@@ -165,10 +176,11 @@ for i in range(2):
     plot[1].set_ylabel("Nanoseconds")
     setSecondaryAxes(plot[0])
     setSecondaryAxes(plot[1])
-    plt.suptitle(data_structures[i] + " quicksort and mergesort sorting time")
+    plt.title(data_structures[i] + " quicksort and mergesort sorting time")
     plt.savefig(path[i] + (data_structures[i] + "_comparisons.jpg"))
     index += 1
 
+#Megresort v mergsort
 plt.figure(index)
 plt.plot(data[0]["array_elements"], data[1]["list_mergesort_data"], color = mergesort_color[1], linewidth = linew, label = data_structures[1] + " mergesort")
 plt.plot(data[0]["array_elements"], data[0]["array_mergesort_data"], color = mergesort_color[0], linewidth = linew, label = data_structures[0] +  " mergesort")
@@ -176,9 +188,10 @@ plt.legend()
 plt.xlabel("elements in array and list")
 plt.ylabel("Nanseconds")
 setSecondaryAxes(None)
-plt.suptitle("array mergesort and linked list mergesort sorting time")
+plt.title("array mergesort and linked list mergesort sorting time")
 plt.savefig("graphs/mergesorts.jpg")
 
+#Quicksort v quicksort
 index += 2 #BUG
 plt.figure(index)
 plt.plot(data[0]["array_elements"], data[1]["list_quicksort_data"], color = quicksort_color[1], linewidth = linew, label = data_structures[1] + " quicksort")
@@ -187,5 +200,25 @@ plt.legend()
 plt.xlabel("elements in array and list")
 plt.ylabel("Nanseconds")
 setSecondaryAxes(None)
-plt.suptitle("array quicksort and linked list quicksort sorting time")
+plt.title("array quicksort and linked list quicksort sorting time")
 plt.savefig("graphs/quicksorts.jpg")
+
+#Data structures
+#index += 1
+#plt.figure
+
+#Bar graph total execution time TODO
+"""
+index += 1
+totals = [data[0]["array_mergesort_total"], data[0]["array_quicksort_total"], data[1]["list_mergesort_total"], data[1]["list_quicksort_total"]]
+a = totals[0] if totals[0] > totals[1] else totals[1]
+b = totals[2] if totals[2] > totals[3] else totals[3]
+y = a if a > b else b
+x = ("array quicksort", "list quicksort", "array mergesort", "list mergesort")
+plt.figure(index)
+plt.bar(np.arange(len(x)), totals, align = "center", width = .1)
+plt.xticks(np.arange(len(x)), x)
+plt.ylabel("Nanoseconds")
+plt.ylim(totals[0])
+plt.title("Total sorting time")
+plt.savefig("graphs/total.jpg")"""
