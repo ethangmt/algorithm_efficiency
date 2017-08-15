@@ -13,13 +13,18 @@ import java_implementation.tools.printer;
 public class tester
 {
   static String path = "java_implementation/array/tester/";
-  static int tests = 1000;
+  static int tests = 0;
   static boolean mergesort = false;
   static boolean quicksort = false;
   static long total_nano_mergesort = 0L;
   static long total_nano_quicksort = 0L;
   static double nano_mergesort = 0;
   static double nano_quicksort = 0;
+
+  public tester(int tests)
+  {
+    this.tests = tests;
+  }
 
   public static void mergesort() throws FileNotFoundException
   {
@@ -104,6 +109,7 @@ public class tester
   {
     if (mergesort && quicksort)
     {
+      System.out.println("Array mergesort and quicksort");
       double nano_mergesort = (double) total_nano_mergesort / tests;
       System.out.println("Mergesort");
       System.out.println(total_nano_mergesort + " nsec - Total nanoseconds");

@@ -101,7 +101,6 @@ def getData(array_path, list_path):
     "list_quicksort_average": list_quicksort_average, "list_quicksort_total": list_quicksort_total,
     "list_elements": list_elements}
 
-    #TODO
     data = [array_data, list_data]
 
     return data
