@@ -8,8 +8,8 @@ TODO
 [x]Store final execution time
 [x]Use same random numbers
 [x]Implemenet linked list and array performance test
-[]Make graphs (graph with quicksort and mergesort side by side), array v linked list, total time for algorithms
+[x]Make graphs (graph with quicksort and mergesort side by side), array v linked list, total time for algorithms
 [x]Implement tester
 [x]Tester threads
-[]Fix mergesort
+[]Fix mergesort ?
 []Implement previous algorithms in python and c ?

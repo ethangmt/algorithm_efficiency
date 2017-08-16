@@ -100,7 +100,59 @@ def getData(array_path, list_path, data_structures_path):
     array_write_average = 0
     array_tests = []
 
-    array_read = open(data_structures_path + "array_read.txt")
+    array_read = open(data_structures_path + "array_read.txt", "r")
+    for line in array_read:
+        array_read_data.append(float(line))
+
+    array_read_average = array_read_data[len(array_read_data) - 1]
+    array_read_data.pop()
+    array_read_total = array_read_data[len(array_read_data) - 2]
+    array_read_data.pop()
+    array_read.close()
+
+    array_write = open(data_structures_path + "array_write.txt", "r")
+    for line in array_write:
+        array_write_data.append(float(line))
+
+    array_write_average = array_write_data[len(array_write_data) - 1]
+    array_write_data.pop()
+    array_write_total = array_write_data[len(array_write_data) - 2]
+    array_write_data.pop()
+    array_write.close()
+
+    for i in range(len(array_read_data)):
+        array_tests.append(i)
+
+    linked_list_read_data = []
+    linked_list_read_total = 0
+    linked_list_read_average = 0
+    linked_list_write_data = []
+    linked_list_write_total = 0
+    linked_list_write_average = 0
+    linked_list_tests = []
+
+    linked_list_read = open(data_structures_path + "linked_list_read.txt", "r")
+    for line in linked_list_read:
+        linked_list_read_data.append(float(line))
+
+    linked_list_read_average = linked_list_read_data[len(linked_list_read_data) - 1]
+    linked_list_read_data.pop()
+    linked_list_read_total = linked_list_read_data[len(linked_list_read_data) - 2]
+    linked_list_read_data.pop()
+    linked_list_read.close()
+
+    linked_list_write = open(data_structures_path + "linked_list_write.txt", "r")
+    for line in linked_list_write:
+        linked_list_write_data.append(float(line))
+
+    linked_list_write_average = linked_list_write_data[len(linked_list_write_data) - 1]
+    linked_list_write_data.pop()
+    linked_list_write_total = linked_list_write_data[len(linked_list_write_data) - 2]
+    linked_list_write_data.pop()
+    linked_list_write.close()
+
+    for i in range(len(linked_list_read_data)):
+        linked_list_tests.append(i)
 
     array_data = {"array_mergesort_data": array_mergesort_data, "array_quicksort_data": array_quicksort_data,
     "array_mergesort_average": array_mergesort_average, "array_mergesort_total": array_mergesort_total,
@@ -112,15 +164,24 @@ def getData(array_path, list_path, data_structures_path):
     "list_quicksort_average": list_quicksort_average, "list_quicksort_total": list_quicksort_total,
     "list_elements": list_elements}
 
-    data = [array_data, list_data]
+    array = {"array_read_data": array_read_data, "array_read_total": array_read_total, "array_read_average": array_read_average,
+     "array_write_data": array_write_data, "array_write_total": array_write_total, "array_write_average": array_write_average,
+     "array_tests": array_tests}
+
+    linked_list = {"linked_list_read_data": linked_list_read_data, "linked_list_read_total": linked_list_read_total, "linked_list_read_average": linked_list_read_average,
+     "linked_list_write_data": linked_list_write_data, "linked_list_write_total": linked_list_write_total, "linked_list_write_average": linked_list_write_average,
+     "linked_list_tests": linked_list_tests}
+
+    data = [array_data, list_data, array, linked_list]
 
     return data
 
 path = ["graphs/array/", "graphs/linked_list/"]
-tester_path = ["java_implementation/array/tester/", "java_implementation/linked_list/tester/", "java_implementation/data_structures"]
+tester_path = ["java_implementation/array/tester/", "java_implementation/linked_list/tester/", "java_implementation/data_structures/"]
 
 linew = 3
 data_structures = ["array", "list"]
+operation = ["read", "write"]
 
 mergesort_color = ["blue", "green"]
 quicksort_color = ["red", "yellow"]
@@ -133,7 +194,8 @@ data = getData(tester_path[0], tester_path[1], tester_path[2])
 #Seconds iteration - Linked List graphs
 index = 0
 for i in range(2):
-    plt.figure(i + index)
+    index += 1
+    plt.figure(index)
     plt.plot(data[i][data_structures[i] + "_elements"], data[i][data_structures[i] + "_mergesort_data"], color = mergesort_color[i], linewidth = linew, label = data_structures[i] + " mergesort")
     plt.legend()
     plt.xlabel("elements in " + data_structures[i])
@@ -143,7 +205,7 @@ for i in range(2):
     plt.savefig(path[i] + (data_structures[i] + "_mergesort.jpg"))
 
     index += 1
-    plt.figure(i + index)
+    plt.figure(index)
     plt.plot(data[i][data_structures[i] + "_elements"], data[i][data_structures[i] + "_quicksort_data"], color = quicksort_color[i], linewidth = linew, label = data_structures[i] + " quicksort")
     plt.legend()
     plt.xlabel("elements in " + data_structures[i])
@@ -153,7 +215,7 @@ for i in range(2):
     plt.savefig(path[i] + (data_structures[i] + "_quicksort.jpg"))
 
     index += 1
-    plt.figure(i + index)
+    plt.figure(index)
     plt.plot(data[i][data_structures[i] + "_elements"], data[i][data_structures[i] + "_mergesort_data"], color = mergesort_color[i], linewidth = linew, label = data_structures[i] + " mergesort")
     plt.plot(data[i][data_structures[i] + "_elements"], data[i][data_structures[i] + "_quicksort_data"], color = quicksort_color[i], linewidth = linew, label = data_structures[i] + " quicksort")
     plt.legend()
@@ -164,7 +226,7 @@ for i in range(2):
     plt.savefig(path[i] + (data_structures[i] + "_comparison.jpg"))
 
     index += 1
-    plt.figure(i + index)
+    plt.figure(index)
     f, plot = plt.subplots(2, sharex = True, sharey = True)
     plot[0].plot(data[i][data_structures[i] + "_elements"], data[i][data_structures[i] + "_mergesort_data"], color = mergesort_color[i], linewidth = linew, label = data_structures[i] + " mergesort")
     plot[0].legend()
@@ -176,11 +238,21 @@ for i in range(2):
     plot[1].set_ylabel("Nanoseconds")
     setSecondaryAxes(plot[0])
     setSecondaryAxes(plot[1])
-    plt.title(data_structures[i] + " quicksort and mergesort sorting time")
+    plt.suptitle(data_structures[i] + " quicksort and mergesort sorting time")
     plt.savefig(path[i] + (data_structures[i] + "_comparisons.jpg"))
-    index += 1
+
+    index += 2
+    plt.figure(index)
+    plt.plot(data[3]["linked_list_tests"], data[3]["linked_list_" + operation[i] + "_data"], color = list_color, linewidth = linew, label = operation[i] + " linked list")
+    plt.plot(data[2]["array_tests"], data[2]["array_" + operation[i] + "_data"], color = array_color, linewidth = linew, label = operation[i] + " array")
+    plt.legend()
+    plt.xlabel("Number of " + operation[i] + " operations")
+    plt.ylabel("Nanoseconds")
+    plt.title("array and linked list " + operation[i] + " time")
+    plt.savefig("graphs/data_structures/" + operation[i] + ".jpg")
 
 #Megresort v mergsort
+index += 1
 plt.figure(index)
 plt.plot(data[0]["array_elements"], data[1]["list_mergesort_data"], color = mergesort_color[1], linewidth = linew, label = data_structures[1] + " mergesort")
 plt.plot(data[0]["array_elements"], data[0]["array_mergesort_data"], color = mergesort_color[0], linewidth = linew, label = data_structures[0] +  " mergesort")
@@ -192,7 +264,7 @@ plt.title("array mergesort and linked list mergesort sorting time")
 plt.savefig("graphs/mergesorts.jpg")
 
 #Quicksort v quicksort
-index += 2 #BUG
+index += 2
 plt.figure(index)
 plt.plot(data[0]["array_elements"], data[1]["list_quicksort_data"], color = quicksort_color[1], linewidth = linew, label = data_structures[1] + " quicksort")
 plt.plot(data[0]["array_elements"], data[0]["array_quicksort_data"], color = quicksort_color[0], linewidth = linew, label = data_structures[0] +  " quicksort")
@@ -202,23 +274,3 @@ plt.ylabel("Nanseconds")
 setSecondaryAxes(None)
 plt.title("array quicksort and linked list quicksort sorting time")
 plt.savefig("graphs/quicksorts.jpg")
-
-#Data structures
-#index += 1
-#plt.figure
-
-#Bar graph total execution time TODO
-"""
-index += 1
-totals = [data[0]["array_mergesort_total"], data[0]["array_quicksort_total"], data[1]["list_mergesort_total"], data[1]["list_quicksort_total"]]
-a = totals[0] if totals[0] > totals[1] else totals[1]
-b = totals[2] if totals[2] > totals[3] else totals[3]
-y = a if a > b else b
-x = ("array quicksort", "list quicksort", "array mergesort", "list mergesort")
-plt.figure(index)
-plt.bar(np.arange(len(x)), totals, align = "center", width = .1)
-plt.xticks(np.arange(len(x)), x)
-plt.ylabel("Nanoseconds")
-plt.ylim(totals[0])
-plt.title("Total sorting time")
-plt.savefig("graphs/total.jpg")"""
