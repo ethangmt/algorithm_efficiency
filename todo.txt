@@ -11,5 +11,6 @@ TODO
 [x]Make graphs (graph with quicksort and mergesort side by side), array v linked list, total time for algorithms
 [x]Implement tester
 [x]Tester threads
+[x]Main.sh
 []Fix mergesort ?
 []Implement previous algorithms in python and c ?
